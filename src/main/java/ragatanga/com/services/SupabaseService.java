@@ -7,11 +7,10 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.springframework.stereotype.Service;
-import ragatanga.com.model.FileModel;
-import stefanini.intelligent.httpClient.HttpClient;
-import stefanini.intelligent.httpClient.HttpRequest;
-import stefanini.intelligent.httpClient.HttpResponse;
-import stefanini.intelligent.utils.FileUtil;
+import ragatanga.com.httpClient.HttpClient;
+import ragatanga.com.httpClient.HttpRequest;
+import ragatanga.com.httpClient.HttpResponse;
+import ragatanga.com.utils.FileUtil;
 
 import java.io.IOException;
 import java.util.Map;

@@ -7,9 +7,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.client.RestTemplate;
+import ragatanga.com.httpClient.HttpClient;
+import ragatanga.com.httpClient.HttpRequest;
 import ragatanga.com.model.FileModel;
-import stefanini.intelligent.httpClient.HttpClient;
-import stefanini.intelligent.httpClient.HttpRequest;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
