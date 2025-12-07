@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.client.RestTemplate;
 import ragatanga.com.httpClient.HttpClient;
 import ragatanga.com.httpClient.HttpRequest;
 import ragatanga.com.model.FileModel;
@@ -34,10 +33,6 @@ public class GeminiService {
     }
 
     public Map<String, Object> generateContent(List<FileModel> files) throws IOException {
-        ClassPathResource resource = new ClassPathResource("prompt.txt");
-        byte[] bytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
-        String prompt = new String(bytes, StandardCharsets.UTF_8);
-
         Map<String, Object> responses = new HashMap<>();
         for (FileModel file : files) {
             Map mapResponse = generateContent(file);
