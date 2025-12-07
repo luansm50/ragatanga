@@ -32,7 +32,7 @@ public class HttpClient {
         RequestConfig requestConfig = RequestConfig.custom()
                 .setExpectContinueEnabled(false)
                 .setConnectionRequestTimeout(Timeout.ofSeconds(5))  // tempo máximo pra pegar conexão do pool
-                .setResponseTimeout(Timeout.ofSeconds(30))          // tempo máximo pra receber resposta
+                .setResponseTimeout(Timeout.ofSeconds(500))          // tempo máximo pra receber resposta
                 .setExpectContinueEnabled(false)
                 .build();
 
