@@ -11,7 +11,7 @@ public class SupabaseSyncScheduler {
     @Autowired
     private SupabaseGeminiService supabaseGeminiService;
 
-    @Scheduled(fixedRate = 60000) // 60.000ms = 1 minuto
+    @Scheduled(fixedRate = 5000) // 60.000ms = 1 minuto
     public void processPendingFiles() {
         try {
             supabaseGeminiService.processPendingDocuments();

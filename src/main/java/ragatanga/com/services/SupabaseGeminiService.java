@@ -34,13 +34,12 @@ public class SupabaseGeminiService {
     }
 
     private void uodate(JsonElement recordElem) throws IOException, ParseException {
+        JsonObject record = recordElem.getAsJsonObject();
+        String id = record.get("id").getAsString();
+        String fileName = record.get("name").getAsString();
+        String folderId = record.get("folderId").getAsString();
+        String status = record.get("status").getAsString();
         try {
-            JsonObject record = recordElem.getAsJsonObject();
-            String id = record.get("id").getAsString();
-            String fileName = record.get("name").getAsString();
-            String folderId = record.get("folderId").getAsString();
-            String status = record.get("status").getAsString();
-
             byte[] fileBytes = supabaseService.downloadFile(folderId, id);
             FileModel fileModel = new FileModel(folderId, fileName, Base64.getEncoder().encodeToString(fileBytes), "", status);
 
@@ -48,7 +47,7 @@ public class SupabaseGeminiService {
             FileUpdateDTO dto = processInfos(id, metadata);
             supabaseService.update("documents", id, dto);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            supabaseService.update("documents", id, new FileUpdateDTO(id, null, null, null, null, null, null, "ERROR"));
         }
     }
 
