@@ -26,7 +26,7 @@ public class SupabaseGeminiService {
     private SupabaseService supabaseService;
 
     public void processPendingDocuments() throws IOException, ParseException {
-        Map<String, String> filters = Map.of("status", "PROCESSED");
+        Map<String, String> filters = Map.of("status", "PENDING");
         JsonArray pendingRecords = supabaseService.fetchRecords("documents", filters);
 
         for (JsonElement recordElem : pendingRecords) {
