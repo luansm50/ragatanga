@@ -3,6 +3,7 @@ package ragatanga.com.services;
 import com.google.gson.*;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
@@ -21,8 +22,8 @@ import java.util.Map;
 @Service
 public class GeminiService {
 
-    @Value("${GEMINI_API_KEY}")
-    private String geminiApiKey;
+    @Autowired
+    private SupabaseService supabaseService;
 
     private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
     private static final String GEMINI_EMBEDDINGS_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:embedContent";;
@@ -44,7 +45,9 @@ public class GeminiService {
         return responses;
     }
 
-        public Map generateContent(FileModel file) {
+        public Map generateContent(FileModel file) throws IOException {
+            JsonArray api = supabaseService.fetchRecords("api", new HashMap<>());
+            String geminiApiKey = api.get(0).getAsJsonObject().get("chave").getAsString();
             JsonObject inlineData = new JsonObject();
             inlineData.addProperty("mime_type", "application/pdf");
             inlineData.addProperty("data", file.base64());
@@ -96,15 +99,15 @@ public class GeminiService {
             return new Gson().fromJson(response, Map.class);
         }
 
-    public List<Double> gerarEmbedding(String texto) {
+    public List<Double> gerarEmbedding(String texto) throws IOException {
+        JsonArray api = supabaseService.fetchRecords("api", new HashMap<>());
+        String geminiApiKey = api.get(0).getAsJsonObject().get("chave").getAsString();
         JsonObject content = new JsonObject();
         JsonObject part = new JsonObject();
         part.addProperty("text", texto);
         JsonArray partsArray = new JsonArray();
         partsArray.add(part);
         content.add("parts", partsArray);
-
-
 
         JsonObject payload = new JsonObject();
         payload.add("content", content);

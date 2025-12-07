@@ -52,7 +52,7 @@ public class SupabaseGeminiService {
         }
     }
 
-    private FileUpdateDTO processInfos(String id, Map metadata) throws ParseException {
+    private FileUpdateDTO processInfos(String id, Map metadata) throws ParseException, IOException {
         Map analiseDocumental = (Map) metadata.getOrDefault("analise_documental", new HashMap<>());
         String tipoDoc = (String) analiseDocumental.getOrDefault("classificacao_cod", "PET_SIMPLES");
         String resumo = (String) analiseDocumental.getOrDefault("resumo_conteudo", "Documento sem nome");
