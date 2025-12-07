@@ -20,7 +20,7 @@ import java.util.Map;
 @Service
 public class GeminiService {
 
-    private final String GEMINI_API_KEY = "AIzaSyADd60isqjeI40pSQjylJOEswK1kgdcbiM";
+    private final String GEMINI_API_KEY = "AIzaSyBuq_1mrvVMMo-NhQOb3_sMfTOt6eoCU30";
     private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + GEMINI_API_KEY;
     private final String prompt;
     private final RestTemplate restTemplate = new RestTemplate();
