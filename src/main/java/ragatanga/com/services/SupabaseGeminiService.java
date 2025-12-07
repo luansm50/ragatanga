@@ -1,6 +1,5 @@
 package ragatanga.com.services;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -58,7 +57,7 @@ public class SupabaseGeminiService {
         String tipoDoc = (String) analiseDocumental.getOrDefault("classificacao_cod", "PET_SIMPLES");
         String resumo = (String) analiseDocumental.getOrDefault("resumo_conteudo", "Documento sem nome");
         String descricao = (String) analiseDocumental.getOrDefault("classificacao_desc", "");
-        double[] embedding = textToVector(resumo, 768);
+        List<Double> embedding = geminiService.gerarEmbedding(resumo);
 
         String data = getData(metadata);
 
