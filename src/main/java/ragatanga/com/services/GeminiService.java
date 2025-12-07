@@ -3,6 +3,7 @@ package ragatanga.com.services;
 import com.google.gson.*;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -20,10 +21,11 @@ import java.util.Map;
 @Service
 public class GeminiService {
 
-    private final String GEMINI_API_KEY = "AIzaSyBuq_1mrvVMMo-NhQOb3_sMfTOt6eoCU30";
-    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + GEMINI_API_KEY;
+    @Value("${GEMINI_API_KEY}")
+    private String geminiApiKey;
+
+    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=";
     private final String prompt;
-    private final RestTemplate restTemplate = new RestTemplate();
 
     public GeminiService() throws IOException {
         ClassPathResource resource = new ClassPathResource("prompt.txt");
@@ -72,7 +74,7 @@ public class GeminiService {
         HttpClient httpClient = new HttpClient();
         JsonElement asJson = httpClient.execute(HttpRequest
                         .post()
-                        .url(GEMINI_URL)
+                        .url(GEMINI_URL + geminiApiKey)
                         .addHeader("content-type", "application/json")
                         .setHttpEntity(new StringEntity(payload.toString(), ContentType.APPLICATION_JSON)))
                 .getAsJson();
